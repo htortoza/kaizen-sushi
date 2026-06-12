@@ -1,0 +1,36 @@
+{
+  "_comment": "Contrato global de sitio para Café Oscuro. Copia, renombra y edita con los datos del cliente real.",
+  "contract_type": "site",
+  "site": {
+    "domain": "https://cafeoscuro.cl",
+    "siteName": "Café Oscuro",
+    "language": "es",
+    "defaultOgImage": "/images/og-default.jpg"
+  },
+  "company": {
+    "legalName": "Café Oscuro SpA",
+    "email": "hola@cafeoscuro.cl",
+    "phone": "+56 9 1234 5678",
+    "address": "Av. Providencia 1234, Santiago, Chile"
+  },
+  "navigation": [
+    { "label": "Inicio",    "href": "/" },
+    { "label": "Tienda",    "href": "/tienda" },
+    { "label": "Nosotros",  "href": "/nosotros" },
+    { "label": "Contacto",  "href": "/contacto" }
+  ],
+  "footerLinks": [
+    { "label": "Privacidad", "href": "/privacidad" },
+    { "label": "Términos",   "href": "/terminos" }
+  ],
+  "theme": {
+    "--bg-primary":    "#0d0a07",
+    "--bg-secondary":  "#1a1410",
+    "--text-primary":  "#f5f0e8",
+    "--text-secondary":"#a89880",
+    "--accent":        "#c8860a",
+    "--accent-hover":  "#e09a12",
+    "--font-heading":  "'Cinzel', serif",
+    "--font-body":     "'Plus Jakarta Sans', sans-serif"
+  }
+}

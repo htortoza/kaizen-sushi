@@ -1,0 +1,563 @@
+---
+// src/pages/index.astro — HOME BESPOKE (Kaizen Sushi)
+// NO regenerar con generate.js: esta home es a medida (preloader + scroll storytelling).
+// Datos desde el contrato; layout y coreografía de motion hechos a mano.
+import Layout from '../layouts/Layout.astro';
+import Preloader from '../components/Preloader.astro';
+import site from '../../contracts/site.json';
+import data from '../../contracts/pages/index.json';
+
+const order = site.orderUrl;
+const { seo, hero } = data;
+const sections = data.sections ?? [];
+const features = sections.find((s) => s.type === 'features')?.content;
+const testi    = sections.find((s) => s.type === 'testimonials')?.content;
+const cta      = sections.find((s) => s.type === 'cta')?.content;
+
+const anatomy = [
+  { jp: 'シャリ', romaji: 'shari',  text: 'Arroz templado al punto, sazonado con vinagre de arroz.' },
+  { jp: 'ネタ',   romaji: 'neta',   text: 'Pescado de grado sashimi, seleccionado cada mañana.' },
+  { jp: '山葵',   romaji: 'wasabi', text: 'Rallado al momento, nunca en pasta.' },
+];
+
+const gallery = [
+  { img: '/images/hero-home.jpg', n: '01', title: 'La tabla', text: 'Selección del día, dispuesta con precisión milimétrica.' },
+  { img: '/images/nigiri.jpg',    n: '02', title: 'El nigiri', text: 'Un solo bocado donde nada sobra y nada falta.' },
+  { img: '/images/catering.jpg',  n: '03', title: 'La mesa',   text: 'Catering de autor para eventos y empresas.' },
+];
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  googleFontsUrl={seo.googleFontsUrl}
+  schemaData={seo.schemaData}
+>
+  <Preloader />
+
+  <!-- STACK: HERO (sticky) -> FILOSOFIA (cubre y encoge al hero) -->
+  <div class="stack">
+    <section class="panel panel--hero" data-hero aria-label="Inicio">
+      <div class="hero-media" data-hero-media style={`--bg: url('${hero.backgroundImage}')`}></div>
+      <div class="hero-veil" data-hero-veil></div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy" data-hero-copy>
+          <span class="kicker" data-reveal>Sushi premium · Santiago</span>
+          <h1 class="hero-title">
+            <span class="line" data-reveal-line>El arte está</span>
+            <span class="line" data-reveal-line>en el <em>corte</em>.</span>
+          </h1>
+          <p class="hero-sub" data-reveal>{hero.subheadline}</p>
+          <div class="hero-actions" data-reveal>
+            <a class="btn-primary" href={order} target="_blank" rel="noopener noreferrer" data-magnetic>{hero.ctaText}</a>
+            <a class="btn-ghost" href="/menu">{hero.ctaSecondaryText} <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <span class="hero-kanji" data-hero-kanji aria-hidden="true">改善</span>
+      </div>
+
+      <div class="hero-cue" data-reveal aria-hidden="true">
+        <span>desliza</span>
+        <span class="hero-cue__line"></span>
+      </div>
+    </section>
+
+    <section class="panel panel--philosophy" data-philosophy aria-label="Filosofía">
+      <div class="container philosophy">
+        <span class="sec-index">01 — Filosofía</span>
+        <p class="philosophy__lead">
+          <span class="jp">改善</span> <em>kaizen</em>: mejorar, cada día, cada pieza.
+        </p>
+        <p class="philosophy__body">
+          No perseguimos el plato perfecto, sino el de hoy mejor que el de ayer. El pescado se
+          elige al amanecer, el arroz se templa a mano y el itamae repite el mismo gesto miles de
+          veces hasta que deja de ser técnica y se vuelve intención. Por eso ninguna pieza sale
+          igual a la anterior — sale mejor.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ANATOMIA DEL NIGIRI (pinned + scrub) -->
+  <section class="anatomy" data-anatomy aria-label="Anatomía del nigiri">
+    <div class="container anatomy__head">
+      <span class="sec-index">02 — Anatomía</span>
+      <h2 class="anatomy__title">Tres elementos. Cero atajos.</h2>
+    </div>
+    <div class="anatomy__stage">
+      <figure class="anatomy__piece" data-anatomy-piece>
+        <img src="/images/nigiri.jpg" alt="Nigiri premium de Kaizen Sushi" loading="lazy" />
+      </figure>
+      <ul class="anatomy__notes">
+        {anatomy.map((a, i) => (
+          <li class="anatomy__note" data-anatomy-note style={`--i:${i}`}>
+            <span class="anatomy__line" aria-hidden="true"></span>
+            <span class="anatomy__jp">{a.jp}</span>
+            <span class="anatomy__romaji">{a.romaji}</span>
+            <span class="anatomy__text">{a.text}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- GALERIA HORIZONTAL (pinned + scrub) -->
+  <section class="gallery" data-gallery aria-label="La carta">
+    <div class="gallery__track" data-gallery-track>
+      <div class="gallery__intro">
+        <span class="sec-index">03 — La mesa</span>
+        <h2 class="gallery__title">Del corte<br/>a tu puerta.</h2>
+        <span class="gallery__hint" aria-hidden="true">scroll →</span>
+      </div>
+      {gallery.map((g) => (
+        <article class="gcard">
+          <div class="gcard__media"><img src={g.img} alt={g.title} loading="lazy" /></div>
+          <div class="gcard__meta">
+            <span class="gcard__n">{g.n}</span>
+            <h3>{g.title}</h3>
+            <p>{g.text}</p>
+          </div>
+        </article>
+      ))}
+      <div class="gallery__end">
+        <p>¿Listo para probarlo?</p>
+        <a class="btn-primary" href={order} target="_blank" rel="noopener noreferrer" data-magnetic>Pedir ahora</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUE KAIZEN (sticky-left / scroll-right) -->
+  {features && (
+    <section class="why" data-why aria-label="Por qué Kaizen">
+      <div class="container why__grid">
+        <div class="why__aside">
+          <span class="sec-index">04 — Por qué Kaizen</span>
+          <h2 class="why__title">{features.title}</h2>
+          <p class="why__sub">{features.subtitle}</p>
+        </div>
+        <ul class="why__list">
+          {features.items.map((it, i) => (
+            <li class="why__item" data-why-item>
+              <span class="why__n">{String(i + 1).padStart(2, '0')}</span>
+              <span class="why__icon" set:html={it.icon} aria-hidden="true"></span>
+              <h3>{it.title}</h3>
+              <p>{it.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- TESTIMONIOS (reveal escalonado) -->
+  {testi && (
+    <section class="voices" data-voices aria-label="Testimonios">
+      <div class="container">
+        <span class="sec-index">05 — En Santiago</span>
+        <ul class="voices__grid">
+          {testi.items.map((t) => (
+            <li class="voice" data-voice>
+              <p class="voice__quote">“{t.quote}”</p>
+              <p class="voice__who"><strong>{t.author}</strong> · {t.role}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA FINAL (full-bleed cinematográfico) -->
+  {cta && (
+    <section class="finale" data-finale aria-label="Pedir">
+      <div class="finale__media" style="--bg: url('/images/og-default.jpg')"></div>
+      <div class="finale__veil"></div>
+      <div class="finale__inner" data-finale-inner>
+        <h2 class="finale__title">{cta.headline}</h2>
+        <p class="finale__sub">{cta.subtext}</p>
+        <a class="btn-primary btn-primary--lg" href={cta.ctaHref} target="_blank" rel="noopener noreferrer" data-magnetic>{cta.ctaText}</a>
+      </div>
+    </section>
+  )}
+</Layout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function magnetic() {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    document.querySelectorAll('[data-magnetic]').forEach((el) => {
+      const qx = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'power3.out' });
+      const qy = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'power3.out' });
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        qx((e.clientX - (r.left + r.width / 2)) * 0.4);
+        qy((e.clientY - (r.top + r.height / 2)) * 0.4);
+      });
+      el.addEventListener('mouseleave', () =>
+        gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.3)' }));
+    });
+  }
+
+  function revealHero() {
+    const copy = document.querySelector('[data-hero-copy]');
+    if (!copy) return;
+    if (reduced) { gsap.set('[data-reveal], [data-reveal-line]', { clearProps: 'all' }); return; }
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+    tl.from('[data-reveal-line]', { yPercent: 110, opacity: 0, stagger: 0.12, duration: 1.1 })
+      .from('.kicker[data-reveal]', { y: 16, opacity: 0, duration: 0.7 }, 0.1)
+      .from('.hero-sub[data-reveal]', { y: 20, opacity: 0, duration: 0.8 }, '-=0.7')
+      .from('.hero-actions[data-reveal]', { y: 20, opacity: 0, duration: 0.8 }, '-=0.6')
+      .from('.hero-cue[data-reveal]', { opacity: 0, duration: 0.8 }, '-=0.4')
+      .from('[data-hero-kanji]', { opacity: 0, x: 40, duration: 1.4 }, 0.2);
+  }
+
+  function scenes() {
+    if (reduced) return;
+
+    // Parallax del fondo del hero
+    gsap.to('[data-hero-media]', {
+      yPercent: 18, scale: 1.12, ease: 'none',
+      scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true },
+    });
+
+    // El hero se encoge y oscurece mientras Filosofía sube sobre él
+    gsap.timeline({
+      scrollTrigger: { trigger: '[data-philosophy]', start: 'top bottom', end: 'top top', scrub: true },
+    })
+      .to('[data-hero]', { scale: 0.92, transformOrigin: 'center 35%', ease: 'none' }, 0)
+      .to('[data-hero-veil]', { opacity: 0.78, ease: 'none' }, 0);
+
+    // Filosofía: lead grande revela por scroll
+    gsap.from('.philosophy__lead', {
+      yPercent: 40, opacity: 0, duration: 1, ease: 'expo.out',
+      scrollTrigger: { trigger: '.philosophy', start: 'top 72%' },
+    });
+    gsap.from('.philosophy__body', {
+      y: 24, opacity: 0, duration: 1, ease: 'expo.out',
+      scrollTrigger: { trigger: '.philosophy__body', start: 'top 82%' },
+    });
+
+    // Anatomía: pin + scrub. La pieza escala/gira sutil y las notas se dibujan en secuencia.
+    const notes = gsap.utils.toArray('[data-anatomy-note]');
+    const at = gsap.timeline({
+      scrollTrigger: {
+        trigger: '[data-anatomy]', start: 'top top', end: '+=160%',
+        pin: true, scrub: 0.6,
+      },
+    });
+    at.fromTo('[data-anatomy-piece]',
+      { scale: 0.86, rotate: -4, filter: 'brightness(0.7)' },
+      { scale: 1, rotate: 0, filter: 'brightness(1)', ease: 'none', duration: notes.length });
+    notes.forEach((n, i) => {
+      at.fromTo(n, { opacity: 0, x: 30 }, { opacity: 1, x: 0, ease: 'expo.out', duration: 0.6 }, i);
+      at.fromTo(n.querySelector('.anatomy__line'),
+        { scaleX: 0 }, { scaleX: 1, ease: 'expo.out', duration: 0.6 }, i);
+    });
+
+    // Galería horizontal: pin + traslación X por scroll
+    const track = document.querySelector('[data-gallery-track]');
+    if (track) {
+      const dist = () => track.scrollWidth - window.innerWidth;
+      gsap.to(track, {
+        x: () => -dist(), ease: 'none',
+        scrollTrigger: {
+          trigger: '[data-gallery]', start: 'top top',
+          end: () => '+=' + dist(), pin: true, scrub: 0.6, invalidateOnRefresh: true,
+        },
+      });
+    }
+
+    // Por qué: items revelan escalonado
+    gsap.from('[data-why-item]', {
+      y: 40, opacity: 0, stagger: 0.15, duration: 0.9, ease: 'expo.out',
+      scrollTrigger: { trigger: '.why__list', start: 'top 78%' },
+    });
+
+    // Testimonios
+    gsap.from('[data-voice]', {
+      y: 36, opacity: 0, stagger: 0.1, duration: 0.8, ease: 'expo.out',
+      scrollTrigger: { trigger: '.voices__grid', start: 'top 80%' },
+    });
+
+    // Finale: parallax + reveal
+    gsap.to('.finale__media', {
+      yPercent: 14, ease: 'none',
+      scrollTrigger: { trigger: '[data-finale]', start: 'top bottom', end: 'bottom top', scrub: true },
+    });
+    gsap.from('[data-finale-inner] > *', {
+      y: 40, opacity: 0, stagger: 0.12, duration: 1, ease: 'expo.out',
+      scrollTrigger: { trigger: '[data-finale]', start: 'top 65%' },
+    });
+  }
+
+  document.addEventListener('kaizen:revealed', () => {
+    revealHero();
+    scenes();
+    magnetic();
+    ScrollTrigger.refresh();
+  }, { once: true });
+
+  // Recalcular medidas cuando cargan imágenes/fuentes
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+</script>
+
+<style>
+  .stack, .anatomy, .gallery, .why, .voices, .finale { position: relative; }
+
+  .sec-index {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* HERO */
+  .panel--hero {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .hero-media {
+    position: absolute; inset: -8% 0;
+    background-image: var(--bg);
+    background-size: cover; background-position: center;
+    z-index: 0; will-change: transform;
+  }
+  .hero-veil {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      radial-gradient(120% 80% at 70% 20%, transparent 30%, color-mix(in srgb, var(--bg-primary) 55%, transparent) 100%),
+      linear-gradient(to top, var(--bg-primary) 4%, color-mix(in srgb, var(--bg-primary) 30%, transparent) 50%, color-mix(in srgb, var(--bg-primary) 60%, transparent) 100%);
+  }
+  .hero-grid {
+    position: relative; z-index: 2;
+    width: 100%;
+    padding-bottom: clamp(var(--space-xl), 14vh, var(--space-2xl));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--space-md);
+  }
+  .hero-copy { display: flex; flex-direction: column; gap: var(--space-md); max-width: 100%; }
+  .kicker { color: var(--text-secondary); }
+  .hero-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(2.8rem, 6.4vw, 5.8rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    max-width: 13ch;
+  }
+  .hero-title .line { display: block; overflow: hidden; }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: clamp(var(--text-base), 1.6vw, var(--text-lg));
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 42ch;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; }
+  .hero-kanji {
+    font-family: var(--font-heading);
+    font-size: clamp(7rem, 17vw, 15rem);
+    font-weight: 800;
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--border) 40%, transparent);
+    writing-mode: vertical-rl;
+    align-self: end;
+    margin-bottom: -0.06em;
+    user-select: none;
+  }
+  .hero-cue {
+    position: absolute; left: 50%; bottom: var(--space-md);
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: var(--space-xs);
+    font-family: var(--font-body); font-size: var(--text-xs);
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary);
+  }
+  .hero-cue__line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: cue 2s var(--ease-expo) infinite;
+  }
+  @keyframes cue { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+  /* Botones */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: var(--space-xs);
+    font-family: var(--font-body); font-weight: 700; letter-spacing: 0.03em;
+    color: var(--bg-primary); background: var(--accent);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-full); text-decoration: none;
+    transition: background-color var(--transition-fast);
+    will-change: transform;
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary--lg { font-size: var(--text-lg); padding: var(--space-sm) var(--space-lg); }
+  .btn-ghost {
+    font-family: var(--font-body); font-weight: 600; color: var(--text-primary);
+    text-decoration: none; display: inline-flex; gap: 0.4em; align-items: center;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    padding-bottom: 2px; transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+  .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* FILOSOFIA */
+  .panel--philosophy {
+    position: relative; z-index: 2;
+    background: var(--bg-secondary);
+    border-top: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding-block: clamp(var(--space-xl), 18vh, var(--space-2xl));
+  }
+  .philosophy { display: flex; flex-direction: column; gap: var(--space-lg); max-width: 920px; }
+  .philosophy__lead {
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.1;
+    letter-spacing: -0.02em; color: var(--text-primary);
+  }
+  .philosophy__lead .jp { color: var(--accent); }
+  .philosophy__lead em { font-style: italic; color: var(--text-secondary); }
+  .philosophy__body {
+    font-size: clamp(var(--text-base), 2vw, var(--text-lg));
+    line-height: 1.8; color: var(--text-secondary); max-width: 60ch;
+  }
+
+  /* ANATOMIA */
+  .anatomy { background: var(--bg-primary); padding-block: var(--space-xl); }
+  .anatomy__head { display: flex; flex-direction: column; gap: var(--space-sm); margin-bottom: var(--space-lg); }
+  .anatomy__title {
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -0.02em; color: var(--text-primary);
+  }
+  .anatomy__stage {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);
+    align-items: center; min-height: 70svh;
+  }
+  .anatomy__piece {
+    border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: var(--shadow-lg); will-change: transform, filter;
+    aspect-ratio: 16/11;
+  }
+  .anatomy__piece img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .anatomy__notes { list-style: none; display: flex; flex-direction: column; gap: var(--space-lg); }
+  .anatomy__note { display: grid; grid-template-columns: auto 1fr; column-gap: var(--space-md); align-items: baseline; }
+  .anatomy__line {
+    grid-column: 1 / -1; height: 1px; background: var(--accent);
+    transform-origin: left; transform: scaleX(0); margin-bottom: var(--space-xs);
+  }
+  .anatomy__jp { font-family: var(--font-heading); font-size: var(--text-2xl); color: var(--text-primary); }
+  .anatomy__romaji { font-family: var(--font-body); font-size: var(--text-sm); color: var(--accent); letter-spacing: 0.1em; }
+  .anatomy__text { grid-column: 1 / -1; font-size: var(--text-base); color: var(--text-secondary); line-height: 1.6; margin-top: var(--space-xs); }
+
+  /* GALERIA HORIZONTAL */
+  .gallery { overflow: hidden; background: var(--bg-secondary); }
+  .gallery__track {
+    display: flex; align-items: center; gap: var(--space-lg);
+    height: 100svh; width: max-content; padding-inline: var(--container-pad);
+    will-change: transform;
+  }
+  .gallery__intro { flex: 0 0 auto; width: min(44vw, 520px); display: flex; flex-direction: column; gap: var(--space-md); }
+  .gallery__title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(2.4rem, 6vw, 5rem); line-height: 0.98; letter-spacing: -0.03em; color: var(--text-primary); }
+  .gallery__hint { color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; font-size: var(--text-xs); }
+  .gcard { flex: 0 0 auto; width: min(64vw, 520px); display: flex; flex-direction: column; gap: var(--space-sm); }
+  .gcard__media { aspect-ratio: 4/5; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+  .gcard__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--transition-smooth); }
+  .gcard:hover .gcard__media img { transform: scale(1.05); }
+  .gcard__meta { display: flex; flex-direction: column; gap: 2px; }
+  .gcard__n { font-family: var(--font-heading); color: var(--accent); font-size: var(--text-lg); }
+  .gcard__meta h3 { font-family: var(--font-heading); font-size: var(--text-xl); color: var(--text-primary); }
+  .gcard__meta p { color: var(--text-secondary); font-size: var(--text-sm); max-width: 36ch; }
+  .gallery__end { flex: 0 0 auto; width: min(60vw, 420px); display: flex; flex-direction: column; gap: var(--space-md); align-items: flex-start; padding-right: var(--space-xl); }
+  .gallery__end p { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 3rem); color: var(--text-primary); }
+
+  /* POR QUE */
+  .why { background: var(--bg-primary); padding-block: var(--space-xl); }
+  .why__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); }
+  .why__aside { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .why__title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -0.02em; color: var(--text-primary); }
+  .why__sub { color: var(--text-secondary); font-size: var(--text-lg); max-width: 40ch; }
+  .why__list { list-style: none; display: grid; gap: var(--space-lg); }
+  .why__item {
+    display: grid; gap: var(--space-xs);
+    padding-top: var(--space-md);
+    border-top: 1px solid color-mix(in srgb, var(--border) 25%, transparent);
+  }
+  .why__n { font-family: var(--font-heading); font-size: var(--text-2xl); color: color-mix(in srgb, var(--accent) 60%, transparent); }
+  .why__icon { color: var(--accent); width: 2rem; height: 2rem; }
+  .why__icon :global(svg) { width: 100%; height: 100%; }
+  .why__item h3 { font-family: var(--font-heading); font-size: var(--text-xl); color: var(--text-primary); }
+  .why__item p { color: var(--text-secondary); line-height: 1.6; }
+
+  /* TESTIMONIOS */
+  .voices { background: var(--bg-secondary); padding-block: var(--space-xl); }
+  .voices__grid { list-style: none; display: grid; grid-template-columns: 1fr; gap: var(--space-md); margin-top: var(--space-lg); }
+  .voice {
+    display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--bg-primary);
+    border: 1px solid color-mix(in srgb, var(--border) 25%, transparent);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+  }
+  .voice:hover { border-color: color-mix(in srgb, var(--accent) 60%, transparent); transform: translateY(-4px); }
+  .voice__quote { font-family: var(--font-heading); font-size: var(--text-base); line-height: 1.55; color: var(--text-primary); font-style: italic; }
+  .voice__who { font-size: var(--text-sm); color: var(--text-secondary); }
+
+  /* FINALE */
+  .finale { min-height: 100svh; display: flex; align-items: center; overflow: hidden; padding-block: var(--space-xl); }
+  .finale__media { position: absolute; inset: -8% 0; background-image: var(--bg); background-size: cover; background-position: center right; z-index: 0; }
+  .finale__veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, var(--bg-primary) 42%, color-mix(in srgb, var(--bg-primary) 70%, transparent) 62%, transparent 95%); }
+  .finale__inner {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; gap: var(--space-md); align-items: flex-start;
+    width: 50%; max-width: 760px;
+    margin-right: auto;
+    padding-left: clamp(var(--container-pad), 6vw, 6rem);
+    padding-right: var(--space-lg);
+  }
+  .finale__title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(2.6rem, 5.4vw, 5rem); line-height: 0.98; letter-spacing: -0.03em; color: var(--text-primary); }
+  .finale__sub { color: var(--text-secondary); font-size: clamp(var(--text-base), 1.6vw, var(--text-lg)); line-height: 1.6; max-width: 40ch; }
+
+  /* DESKTOP */
+  @media (min-width: 768px) {
+    .why__grid { grid-template-columns: 0.9fr 1.4fr; gap: var(--space-2xl); }
+    .why__aside { position: sticky; top: 18vh; align-self: start; }
+    .voices__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1100px) {
+    .voices__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* MOVIL: simplificar, nunca romper */
+  @media (max-width: 767px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-kanji { display: none; }
+    .anatomy__stage { grid-template-columns: 1fr; gap: var(--space-lg); min-height: auto; }
+    .gcard { width: 78vw; }
+    .gallery__intro { width: 80vw; }
+    .finale__inner { width: 100%; max-width: 100%; padding-right: var(--container-pad); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel--hero { position: relative; height: auto; min-height: 90svh; }
+    .hero-cue__line { animation: none; }
+    .anatomy__line { transform: scaleX(1); }
+    .gallery__track { width: auto; height: auto; flex-wrap: wrap; }
+  }
+</style>

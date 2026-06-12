@@ -1,0 +1,123 @@
+---
+// src/components/Footer.astro
+// Chrome global del sitio. Lee contracts/site.json (marca + contacto + links).
+import site from '../../contracts/site.json';
+
+const year = new Date().getFullYear();
+const { siteName } = site.site;
+const company = site.company ?? {};
+const links = site.footerLinks ?? [];
+const orderUrl = site.orderUrl ?? '#';
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__top">
+    <div class="site-footer__brand">
+      <span class="site-footer__name">{siteName}</span>
+      <p class="site-footer__tagline">Sushi premium. Cortado a mano, entregado impecable.</p>
+      <a href={orderUrl} class="site-footer__cta" target="_blank" rel="noopener noreferrer">Pedir ahora →</a>
+    </div>
+
+    <div class="site-footer__cols">
+      <nav class="site-footer__col" aria-label="Navegación de pie de página">
+        <h3>Explorar</h3>
+        <ul role="list">
+          {links.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="site-footer__col">
+        <h3>Contacto</h3>
+        <ul role="list">
+          {company.email   && <li><a href={`mailto:${company.email}`}>{company.email}</a></li>}
+          {company.phone   && <li><a href={`tel:${company.phone.replace(/\s/g, '')}`}>{company.phone}</a></li>}
+          {company.address && <li><span>{company.address}</span></li>}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>&copy; {year} {company.legalName ?? siteName}. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-top: 1px solid color-mix(in srgb, var(--border) 35%, transparent);
+    background-color: var(--bg-secondary);
+  }
+
+  .site-footer__top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
+
+  .site-footer__name {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .site-footer__tagline {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    margin-block: var(--space-sm);
+    max-width: 36ch;
+  }
+  .site-footer__cta {
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .site-footer__cta:hover { color: var(--accent-hover); }
+
+  .site-footer__cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+  .site-footer__col h3 {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+  }
+  .site-footer__col ul { list-style: none; display: grid; gap: var(--space-xs); }
+  .site-footer__col a,
+  .site-footer__col span {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .site-footer__col a:hover { color: var(--accent); }
+
+  .site-footer__bottom {
+    padding-top: var(--space-md);
+    border-top: 1px solid color-mix(in srgb, var(--border) 20%, transparent);
+  }
+  .site-footer__bottom p {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .site-footer__top {
+      grid-template-columns: 1.2fr 1fr;
+      align-items: start;
+      gap: var(--space-2xl);
+    }
+    .site-footer__cols { gap: var(--space-lg); }
+  }
+</style>

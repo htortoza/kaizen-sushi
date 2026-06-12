@@ -1,0 +1,38 @@
+{
+  "_comment": "Contrato global de sitio — Kaizen Sushi. Restaurante de sushi premium en Santiago: delivery + catering.",
+  "contract_type": "site",
+  "site": {
+    "domain": "https://kaizensushi.cl",
+    "siteName": "Kaizen Sushi",
+    "language": "es",
+    "defaultOgImage": "/images/og-default.jpg"
+  },
+  "company": {
+    "legalName": "Kaizen Sushi SpA",
+    "email": "hola@kaizensushi.cl",
+    "phone": "+56 9 8765 4321",
+    "address": "Av. Vitacura 3210, Santiago, Chile"
+  },
+  "orderUrl": "https://wa.me/56987654321?text=Hola%20Kaizen,%20quiero%20hacer%20un%20pedido",
+  "navigation": [
+    { "label": "Inicio",   "href": "/" },
+    { "label": "Menú",     "href": "/menu" },
+    { "label": "Catering", "href": "/catering" }
+  ],
+  "footerLinks": [
+    { "label": "Menú",     "href": "/menu" },
+    { "label": "Catering", "href": "/catering" },
+    { "label": "Contacto", "href": "mailto:hola@kaizensushi.cl" }
+  ],
+  "theme": {
+    "--bg-primary":     "#0a0a0b",
+    "--bg-secondary":   "#141417",
+    "--text-primary":   "#f6f1e9",
+    "--text-secondary": "#9b9389",
+    "--accent":         "#d4202f",
+    "--accent-hover":   "#e63946",
+    "--border":         "#b08d57",
+    "--font-heading":   "'Shippori Mincho', serif",
+    "--font-body":      "'Zen Kaku Gothic New', sans-serif"
+  }
+}

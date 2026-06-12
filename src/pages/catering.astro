@@ -1,0 +1,132 @@
+---
+// AUTO-GENERADO por generate.js — NO editar a mano, editar el contrato
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+
+const _seo = {
+  "title": "Catering de Sushi para Eventos y Empresas | Kaizen Sushi",
+  "description": "Catering de sushi premium para eventos corporativos y privados en Santiago. Estaciones en vivo, presentación de autor y cotización a medida.",
+  "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+};
+const _service = {
+  "name": "Catering de Sushi para Eventos y Empresas",
+  "description": "Llevamos la experiencia Kaizen a tu evento. Diseñamos un menú a medida con sushi de grado sashimi, presentación de autor y servicio profesional para celebraciones privadas, lanzamientos y eventos corporativos en Santiago.",
+  "areaServed": "Santiago, Chile",
+  "features": [
+    "Menú personalizado según el número de invitados y preferencias",
+    "Estación de sushi en vivo con itamae (opcional)",
+    "Presentación de autor en bandejas y barcos premium",
+    "Opciones vegetarianas y sin gluten disponibles",
+    "Servicio para eventos corporativos, lanzamientos y celebraciones privadas",
+    "Cotización a medida y coordinación logística completa"
+  ]
+};
+const _hero = {
+  "ctaText": "Cotizar catering",
+  "ctaHref": "https://wa.me/56987654321?text=Hola%20Kaizen,%20quiero%20cotizar%20catering%20para%20un%20evento",
+  "backgroundImage": "/images/catering.jpg"
+};
+const _schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Catering de Sushi para Eventos y Empresas",
+  "description": "Llevamos la experiencia Kaizen a tu evento. Diseñamos un menú a medida con sushi de grado sashimi, presentación de autor y servicio profesional para celebraciones privadas, lanzamientos y eventos corporativos en Santiago.",
+  "areaServed": "Santiago, Chile",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Menú personalizado según el número de invitados y preferencias"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Estación de sushi en vivo con itamae (opcional)"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Presentación de autor en bandejas y barcos premium"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Opciones vegetarianas y sin gluten disponibles"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Servicio para eventos corporativos, lanzamientos y celebraciones privadas"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Cotización a medida y coordinación logística completa"
+        }
+      }
+    ]
+  }
+};
+---
+
+<Layout
+  title={_seo.title}
+  description={_seo.description}
+  googleFontsUrl={_seo.googleFontsUrl}
+  schemaData={_schema}
+>
+  <Hero
+    headline={_service.name}
+    subheadline={_service.description}
+    ctaText={_hero.ctaText ?? "Consultar"}
+    ctaHref={_hero.ctaHref ?? "#contacto"}
+    backgroundImage={_hero.backgroundImage}
+  />
+  {_service.features?.length > 0 && (
+    <section class="service-features container">
+      <ul class="features-list">
+        {_service.features.map(f => (
+          <li class="feature-item">{f}</li>
+        ))}
+      </ul>
+      <p class="area-served">Área de cobertura: {_service.areaServed}</p>
+    </section>
+  )}
+</Layout>
+
+<style>
+  .service-features {
+    padding: var(--space-xl) 0;
+  }
+  .features-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+  .feature-item {
+    padding: var(--space-sm) var(--space-md);
+    border-left: 3px solid var(--accent);
+    background: var(--bg-secondary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--text-primary);
+  }
+  .area-served {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+  }
+</style>

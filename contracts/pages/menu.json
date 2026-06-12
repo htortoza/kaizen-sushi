@@ -1,0 +1,39 @@
+{
+  "slug": "menu",
+  "page_type": "product",
+  "seo": {
+    "title": "Menú & Delivery | Kaizen Sushi",
+    "description": "Box Kaizen Premium: 24 piezas de sushi de grado sashimi listas para delivery en Santiago. Pide por WhatsApp y recibe en casa.",
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+  },
+  "hero": {
+    "ctaText": "Pedir por WhatsApp",
+    "ctaHref": "https://wa.me/56987654321?text=Hola%20Kaizen,%20quiero%20pedir%20el%20Box%20Kaizen%20Premium",
+    "backgroundImage": "/images/nigiri.jpg"
+  },
+  "media": {
+    "images": [
+      {
+        "slot": "nigiri",
+        "prompt": "Extreme close-up of three pristine salmon and tuna nigiri pieces on a black ceramic plate, glistening fresh fish, single grain of rice detail, dark moody premium Japanese restaurant aesthetic, deep black background, dramatic chiaroscuro lighting, subtle red and gold tones, cinematic high-end food photography, shallow depth of field, ultra detailed, 8k",
+        "alt": "Primer plano de piezas de nigiri de salmón y atún sobre plato negro",
+        "path": "/images/nigiri.jpg"
+      }
+    ]
+  },
+  "product": {
+    "name": "Box Kaizen Premium — 24 piezas",
+    "description": "Nuestra selección insignia para compartir: nigiri de grado sashimi, rolls de autor y sashimi del día, armados a mano por nuestro itamae. Pensado para dos personas y listo para delivery cuidado en Santiago.",
+    "price": 28900,
+    "currency": "CLP",
+    "images": ["/images/nigiri.jpg"],
+    "specs": [
+      { "label": "Piezas",     "value": "24 (nigiri, rolls y sashimi)" },
+      { "label": "Porciones",  "value": "2 personas" },
+      { "label": "Pescado",    "value": "Grado sashimi, selección diaria" },
+      { "label": "Incluye",    "value": "Soya, wasabi, jengibre y palitos" },
+      { "label": "Empaque",    "value": "Térmico, preserva forma y temperatura" },
+      { "label": "Entrega",    "value": "Santiago oriente, 45 min aprox." }
+    ]
+  }
+}

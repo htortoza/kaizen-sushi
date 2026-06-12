@@ -1,0 +1,38 @@
+{
+  "_comment": "Ejemplo de contrato para un cliente real. Copia este archivo, renómbralo y edita los valores.",
+  "page_type": "landing",
+  "seo": {
+    "title": "Café de Especialidad Tostado en Santiago | Café Oscuro",
+    "description": "Granos de café de especialidad con tostado local. Envíos express a todo Santiago. Sabor intenso y origen ético certificado.",
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Plus+Jakarta+Sans:wght@400;500&display=swap",
+    "schemaData": {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Café Oscuro",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Santiago",
+        "addressCountry": "CL"
+      }
+    }
+  },
+  "hero": {
+    "headline": "El café que despierta Santiago cada mañana",
+    "subheadline": "Granos de especialidad, tostado artesanal local y envíos express. Sabor intenso con origen ético certificado.",
+    "ctaText": "Pedir ahora",
+    "ctaHref": "/tienda",
+    "ctaSecondaryText": "Conocer el origen",
+    "ctaSecondaryHref": "/nosotros"
+  },
+  "theme": {
+    "_comment": "El Agente UI reescribirá theme.css con estos valores",
+    "--bg-primary": "#0d0a07",
+    "--bg-secondary": "#1a1410",
+    "--text-primary": "#f5f0e8",
+    "--text-secondary": "#a89880",
+    "--accent": "#c8860a",
+    "--accent-hover": "#e09a12",
+    "--font-heading": "'Cinzel', serif",
+    "--font-body": "'Plus Jakarta Sans', sans-serif"
+  }
+}

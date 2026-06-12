@@ -1,0 +1,100 @@
+{
+  "slug": "index",
+  "page_type": "landing",
+  "seo": {
+    "title": "Kaizen Sushi — Sushi premium con delivery en Santiago",
+    "description": "Sushi de grado sashimi cortado a mano por nuestro itamae. Delivery cuidado en Santiago y catering para eventos y empresas. Pide hoy.",
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap",
+    "schemaData": {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Kaizen Sushi",
+      "image": "https://kaizensushi.cl/images/og-default.jpg",
+      "url": "https://kaizensushi.cl",
+      "telephone": "+56 9 8765 4321",
+      "servesCuisine": ["Japonesa", "Sushi"],
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Vitacura 3210",
+        "addressLocality": "Santiago",
+        "addressCountry": "CL"
+      },
+      "areaServed": "Santiago, Chile",
+      "acceptsReservations": true,
+      "hasMenu": "https://kaizensushi.cl/menu"
+    }
+  },
+  "hero": {
+    "headline": "Sushi premium que llega impecable",
+    "subheadline": "Cortes de grado sashimi, arroz templado al punto y entrega cuidada en Santiago. Pide hoy, disfruta en casa.",
+    "ctaText": "Pedir ahora",
+    "ctaHref": "https://wa.me/56987654321?text=Hola%20Kaizen,%20quiero%20hacer%20un%20pedido",
+    "ctaSecondaryText": "Ver el menú",
+    "ctaSecondaryHref": "/menu",
+    "backgroundImage": "/images/hero-home.jpg"
+  },
+  "media": {
+    "images": [
+      {
+        "slot": "hero-home",
+        "prompt": "Overhead top-down shot of an exquisite premium sushi platter, assorted nigiri and maki rolls arranged with precision on dark slate, delicate garnish, dark moody premium Japanese restaurant aesthetic, deep black background, dramatic chiaroscuro lighting, subtle red and gold tones, cinematic high-end food photography, shallow depth of field, ultra detailed, 8k",
+        "alt": "Tabla de sushi premium vista cenital sobre pizarra oscura",
+        "path": "/images/hero-home.jpg"
+      },
+      {
+        "slot": "og-default",
+        "prompt": "A focused itamae sushi chef hands precisely slicing fresh tuna with a sharp knife on a wooden board, motion blur on the blade, dark moody premium Japanese restaurant aesthetic, deep black background, dramatic chiaroscuro lighting, subtle red and gold tones, cinematic high-end food photography, ultra detailed, 8k",
+        "alt": "Manos de chef itamae cortando atún fresco",
+        "path": "/images/og-default.jpg"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "features",
+      "content": {
+        "title": "Por qué Kaizen",
+        "subtitle": "Obsesión por el detalle, del corte a tu puerta.",
+        "items": [
+          {
+            "icon": "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='currentColor' stroke-width='1.6' viewBox='0 0 24 24'><path d='M3 12c3-5 15-5 18 0-3 5-15 5-18 0z'/><circle cx='12' cy='12' r='2.5'/></svg>",
+            "title": "Grado sashimi",
+            "description": "Seleccionamos pescado fresco cada mañana. Solo cortes de calidad sashimi llegan a tu pedido."
+          },
+          {
+            "icon": "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='currentColor' stroke-width='1.6' viewBox='0 0 24 24'><path d='M14 3l7 7-9 9-4 1 1-4z'/><path d='M3 21l4-1'/></svg>",
+            "title": "Maestro itamae",
+            "description": "Cada pieza se corta a mano siguiendo la técnica tradicional japonesa. Precisión, no producción en masa."
+          },
+          {
+            "icon": "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='currentColor' stroke-width='1.6' viewBox='0 0 24 24'><path d='M3 8l9-5 9 5v8l-9 5-9-5z'/><path d='M3 8l9 5 9-5'/><path d='M12 13v8'/></svg>",
+            "title": "Entrega impecable",
+            "description": "Empaque térmico que preserva temperatura y forma. Tu sushi llega como recién armado."
+          }
+        ]
+      }
+    },
+    {
+      "type": "testimonials",
+      "content": {
+        "title": "Lo que dicen en Santiago",
+        "items": [
+          { "quote": "El mejor sushi a domicilio que he probado. Llega frío en el punto justo y los cortes son impecables.", "author": "Camila R.", "role": "Las Condes" },
+          { "quote": "Pedimos para una cena en casa y superó al de varios restaurantes donde he comido sentado.", "author": "Andrés M.", "role": "Vitacura" },
+          { "quote": "El catering para la oficina fue un éxito rotundo. Presentación de otro nivel.", "author": "Fernanda T.", "role": "Gerenta de RRHH" },
+          { "quote": "Calidad constante pedido tras pedido. Ya es nuestro sushi de cabecera.", "author": "Joaquín P.", "role": "Providencia" }
+        ]
+      }
+    },
+    {
+      "type": "cta",
+      "content": {
+        "headline": "Tu mesa premium, a un pedido",
+        "subtext": "Entrega cuidada en Santiago oriente. Pide por WhatsApp en menos de un minuto.",
+        "ctaText": "Pedir ahora",
+        "ctaHref": "https://wa.me/56987654321?text=Hola%20Kaizen,%20quiero%20hacer%20un%20pedido"
+      }
+    }
+  ]
+}

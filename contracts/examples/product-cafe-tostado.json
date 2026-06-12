@@ -1,0 +1,26 @@
+{
+  "_comment": "Ejemplo de contrato de producto — Café Oscuro: bolsa de 250g de especialidad",
+  "page_type": "product",
+  "seo": {
+    "title": "Etiopía Yirgacheffe 250g | Café Oscuro",
+    "description": "Café de especialidad de origen único. Notas a frutos rojos, jazmín y chocolate oscuro. Tostado claro artesanal en Santiago."
+  },
+  "product": {
+    "name": "Etiopía Yirgacheffe 250g",
+    "description": "Granos seleccionados de la región Yirgacheffe, Etiopía. Proceso lavado, altitud 1800–2200 msnm. Tostado claro para resaltar sus notas florales y frutales.",
+    "price": 8900,
+    "currency": "CLP",
+    "images": [
+      "/images/productos/etiopia-yirgacheffe-frente.jpg",
+      "/images/productos/etiopia-yirgacheffe-granos.jpg"
+    ],
+    "specs": [
+      { "label": "Origen",       "value": "Etiopía, Yirgacheffe" },
+      { "label": "Proceso",      "value": "Lavado" },
+      { "label": "Tostado",      "value": "Claro" },
+      { "label": "Altitud",      "value": "1800–2200 msnm" },
+      { "label": "Notas",        "value": "Frutos rojos, jazmín, chocolate" },
+      { "label": "Contenido",    "value": "250 gramos" }
+    ]
+  }
+}

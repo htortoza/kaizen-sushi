@@ -1,0 +1,180 @@
+---
+// src/components/Preloader.astro
+// Pantalla de carga ritual — se muestra una vez por sesión (no en navegación interna).
+// Hinomaru (círculo rojo) + kanji 改善 + contador. Emite 'kaizen:revealed' al terminar.
+---
+
+<div class="preloader" data-preloader role="presentation" aria-hidden="true">
+  <div class="preloader__inner">
+    <span class="preloader__sun" data-pl-sun></span>
+    <span class="preloader__kanji" data-pl-kanji>改善</span>
+    <span class="preloader__word" data-pl-word>KAIZEN</span>
+  </div>
+  <div class="preloader__meta">
+    <span class="preloader__count" data-pl-count>00</span>
+    <span class="preloader__line"><span class="preloader__line-fill" data-pl-fill></span></span>
+    <span class="preloader__tag">先付 — el primer corte</span>
+  </div>
+</div>
+
+<script>
+  const pl = document.querySelector('[data-preloader]');
+  if (pl) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fire = () => document.dispatchEvent(new CustomEvent('kaizen:revealed'));
+
+    // Solo en la primera visita de la sesión
+    const seen = sessionStorage.getItem('kaizen_loaded');
+
+    if (seen || reduced) {
+      pl.remove();
+      // El hero se revela igual
+      requestAnimationFrame(fire);
+    } else {
+      sessionStorage.setItem('kaizen_loaded', '1');
+      document.body.style.overflow = 'hidden';
+
+      const count = pl.querySelector('[data-pl-count]');
+      const fill  = pl.querySelector('[data-pl-fill]');
+      const run = async () => {
+        const { gsap } = await import('gsap');
+        const sun   = pl.querySelector('[data-pl-sun]');
+        const kanji = pl.querySelector('[data-pl-kanji]');
+        const word  = pl.querySelector('[data-pl-word]');
+
+        const tl = gsap.timeline({
+          defaults: { ease: 'expo.out' },
+          onComplete: () => {
+            pl.remove();
+            document.body.style.overflow = '';
+            fire();
+          },
+        });
+
+        tl.set(pl, { autoAlpha: 1 })
+          .from(sun,   { scale: 0, opacity: 0, duration: 1.1, ease: 'expo.out' })
+          .from(kanji, { yPercent: 60, opacity: 0, duration: 0.9 }, '-=0.6')
+          .from(word,  { y: 18, opacity: 0, duration: 0.7 }, '-=0.5');
+
+        // Contador 00 → 100 + barra
+        const counter = { v: 0 };
+        tl.to(counter, {
+          v: 100,
+          duration: 1.4,
+          ease: 'power1.inOut',
+          onUpdate: () => {
+            const n = Math.round(counter.v);
+            if (count) count.textContent = String(n).padStart(2, '0');
+            if (fill)  (fill as HTMLElement).style.transform = `scaleX(${counter.v / 100})`;
+          },
+        }, 0.2);
+
+        // Cortina: el velo se abre hacia arriba revelando la página
+        tl.to([sun, kanji, word], { opacity: 0, y: -20, duration: 0.5, stagger: 0.05 }, '+=0.15')
+          .to(pl, { clipPath: 'inset(0 0 100% 0)', duration: 1, ease: 'expo.inOut' }, '-=0.2');
+      };
+      run();
+    }
+  }
+</script>
+
+<style>
+  .preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xl);
+    background-color: var(--bg-primary);
+    clip-path: inset(0 0 0 0);
+    will-change: clip-path;
+  }
+
+  .preloader__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .preloader__sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    border-radius: var(--radius-full);
+    background: radial-gradient(circle at 50% 45%,
+      var(--accent-hover) 0%,
+      var(--accent) 55%,
+      color-mix(in srgb, var(--accent) 30%, transparent) 100%);
+    box-shadow: 0 0 90px color-mix(in srgb, var(--accent) 55%, transparent);
+    z-index: 0;
+  }
+
+  .preloader__kanji {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 12vw, 7rem);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+    mix-blend-mode: difference;
+  }
+
+  .preloader__word {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    letter-spacing: 0.55em;
+    text-indent: 0.55em;
+    color: var(--text-secondary);
+  }
+
+  .preloader__meta {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    width: min(280px, 70vw);
+  }
+  .preloader__count {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .preloader__line {
+    width: 100%;
+    height: 1px;
+    background-color: color-mix(in srgb, var(--border) 30%, transparent);
+    overflow: hidden;
+  }
+  .preloader__line-fill {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .preloader__tag {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+</style>

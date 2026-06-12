@@ -1,0 +1,113 @@
+---
+// AUTO-GENERADO por generate.js — NO editar a mano, editar el contrato
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+
+const _seo = {
+  "title": "Menú & Delivery | Kaizen Sushi",
+  "description": "Box Kaizen Premium: 24 piezas de sushi de grado sashimi listas para delivery en Santiago. Pide por WhatsApp y recibe en casa.",
+  "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+};
+const _product = {
+  "name": "Box Kaizen Premium — 24 piezas",
+  "description": "Nuestra selección insignia para compartir: nigiri de grado sashimi, rolls de autor y sashimi del día, armados a mano por nuestro itamae. Pensado para dos personas y listo para delivery cuidado en Santiago.",
+  "price": 28900,
+  "currency": "CLP",
+  "images": [
+    "/images/nigiri.jpg"
+  ],
+  "specs": [
+    {
+      "label": "Piezas",
+      "value": "24 (nigiri, rolls y sashimi)"
+    },
+    {
+      "label": "Porciones",
+      "value": "2 personas"
+    },
+    {
+      "label": "Pescado",
+      "value": "Grado sashimi, selección diaria"
+    },
+    {
+      "label": "Incluye",
+      "value": "Soya, wasabi, jengibre y palitos"
+    },
+    {
+      "label": "Empaque",
+      "value": "Térmico, preserva forma y temperatura"
+    },
+    {
+      "label": "Entrega",
+      "value": "Santiago oriente, 45 min aprox."
+    }
+  ]
+};
+const _hero = {
+  "ctaText": "Pedir por WhatsApp",
+  "ctaHref": "https://wa.me/56987654321?text=Hola%20Kaizen,%20quiero%20pedir%20el%20Box%20Kaizen%20Premium",
+  "backgroundImage": "/images/nigiri.jpg"
+};
+const _schema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Box Kaizen Premium — 24 piezas",
+  "description": "Nuestra selección insignia para compartir: nigiri de grado sashimi, rolls de autor y sashimi del día, armados a mano por nuestro itamae. Pensado para dos personas y listo para delivery cuidado en Santiago.",
+  "image": [
+    "/images/nigiri.jpg"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": 28900,
+    "priceCurrency": "CLP",
+    "availability": "https://schema.org/InStock"
+  }
+};
+---
+
+<Layout
+  title={_seo.title}
+  description={_seo.description}
+  googleFontsUrl={_seo.googleFontsUrl}
+  schemaData={_schema}
+>
+  <Hero
+    headline={_product.name}
+    subheadline={_product.description}
+    ctaText={_hero.ctaText ?? "Comprar ahora"}
+    ctaHref={_hero.ctaHref ?? "#"}
+    backgroundImage={_hero.backgroundImage}
+  />
+  {/* Contenido de producto generado desde contrato */}
+  <section class="product-detail container">
+    <p class="product-price">{_product.price} {_product.currency}</p>
+    {_product.specs?.length > 0 && (
+      <ul class="product-specs">
+        {_product.specs.map(s => (
+          <li><strong>{s.label}:</strong> {s.value}</li>
+        ))}
+      </ul>
+    )}
+  </section>
+</Layout>
+
+<style>
+  .product-detail {
+    padding: var(--space-xl) 0;
+  }
+  .product-price {
+    font-size: var(--text-2xl);
+    font-family: var(--font-heading);
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+  }
+  .product-specs {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-xs);
+  }
+  .product-specs li {
+    color: var(--text-secondary);
+  }
+</style>

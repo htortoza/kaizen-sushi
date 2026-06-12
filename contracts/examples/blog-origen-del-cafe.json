@@ -1,0 +1,16 @@
+{
+  "_comment": "Ejemplo de contrato de blog — artículo sobre el origen del café de especialidad",
+  "page_type": "blog",
+  "seo": {
+    "title": "El origen del café de especialidad | Café Oscuro",
+    "description": "Descubre qué hace especial a un café de especialidad: desde la altura del cultivo hasta la trazabilidad del grano."
+  },
+  "post": {
+    "title": "El origen del café de especialidad: del árbol a tu taza",
+    "date": "2025-06-12",
+    "author": "Equipo Café Oscuro",
+    "excerpt": "El café de especialidad no es solo marketing. Es un sistema de trazabilidad que conecta al consumidor con el agricultor a través de la calidad del grano.",
+    "coverImage": "/images/blog/origen-cafe-cover.jpg",
+    "body": "## ¿Qué es el café de especialidad?\n\nLa Specialty Coffee Association define el café de especialidad como aquel que obtiene 80 o más puntos en una escala de 100 en una cata profesional (cupping).\n\n## El papel de la altitud\n\nA mayor altitud, el grano se desarrolla más lento, acumulando azúcares y compuestos aromáticos. Los mejores cafés del mundo provienen de altitudes entre 1500 y 2200 msnm.\n\n## Trazabilidad total\n\nCada bolsa de Café Oscuro indica la finca de origen, el agricultor responsable, el proceso de beneficiado y la fecha de tostado. Creemos que la transparencia es parte del sabor."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "_comment": "Ejemplo de contrato de servicio — tostado personalizado para cafeterías en Santiago",
+  "page_type": "service",
+  "seo": {
+    "title": "Tostado Personalizado para Cafeterías | Café Oscuro",
+    "description": "Servicio de tostado artesanal a medida para cafeterías y restaurantes en Santiago. Perfil de tueste personalizado, entrega semanal y soporte técnico."
+  },
+  "service": {
+    "name": "Tostado Personalizado para Cafeterías",
+    "description": "Desarrollamos el perfil de tueste exclusivo para tu negocio. Trabajamos con granos de especialidad de origen único y entregamos semanalmente para garantizar frescura máxima.",
+    "areaServed": "Santiago, Chile",
+    "features": [
+      "Perfil de tueste personalizado según tu espresso o filtro",
+      "Mínimo de pedido: 5 kg por semana",
+      "Entrega semanal en Santiago Metropolitano",
+      "Soporte técnico de barismo incluido",
+      "Acceso a catas de evaluación cada 3 meses",
+      "Trazabilidad completa del grano de origen"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "catering",
+  "page_type": "service",
+  "seo": {
+    "title": "Catering de Sushi para Eventos y Empresas | Kaizen Sushi",
+    "description": "Catering de sushi premium para eventos corporativos y privados en Santiago. Estaciones en vivo, presentación de autor y cotización a medida.",
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+  },
+  "hero": {
+    "ctaText": "Cotizar catering",
+    "ctaHref": "https://wa.me/56987654321?text=Hola%20Kaizen,%20quiero%20cotizar%20catering%20para%20un%20evento",
+    "backgroundImage": "/images/catering.jpg"
+  },
+  "media": {
+    "images": [
+      {
+        "slot": "catering",
+        "prompt": "Elegant corporate catering table setup with abundant premium sushi boats and large platters for an upscale event, refined minimalist presentation, dark moody premium Japanese restaurant aesthetic, deep black background, dramatic chiaroscuro lighting, subtle red and gold tones, cinematic high-end food photography, ultra detailed, 8k",
+        "alt": "Mesa de catering con bandejas de sushi premium para un evento",
+        "path": "/images/catering.jpg"
+      }
+    ]
+  },
+  "service": {
+    "name": "Catering de Sushi para Eventos y Empresas",
+    "description": "Llevamos la experiencia Kaizen a tu evento. Diseñamos un menú a medida con sushi de grado sashimi, presentación de autor y servicio profesional para celebraciones privadas, lanzamientos y eventos corporativos en Santiago.",
+    "areaServed": "Santiago, Chile",
+    "features": [
+      "Menú personalizado según el número de invitados y preferencias",
+      "Estación de sushi en vivo con itamae (opcional)",
+      "Presentación de autor en bandejas y barcos premium",
+      "Opciones vegetarianas y sin gluten disponibles",
+      "Servicio para eventos corporativos, lanzamientos y celebraciones privadas",
+      "Cotización a medida y coordinación logística completa"
+    ]
+  }
+}
