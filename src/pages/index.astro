@@ -220,79 +220,95 @@ const gallery = [
   function scenes() {
     if (reduced) return;
 
-    // Parallax del fondo del hero
-    gsap.to('[data-hero-media]', {
-      yPercent: 18, scale: 1.12, ease: 'none',
-      scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true },
-    });
+    // La barra de URL en mobile cambia el alto del viewport al hacer scroll y
+    // dispara refreshes que rompen los pins → ignorarlo.
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
-    // El hero se encoge y oscurece mientras Filosofía sube sobre él
-    gsap.timeline({
-      scrollTrigger: { trigger: '[data-philosophy]', start: 'top bottom', end: 'top top', scrub: true },
-    })
-      .to('[data-hero]', { scale: 0.92, transformOrigin: 'center 35%', ease: 'none' }, 0)
-      .to('[data-hero-veil]', { opacity: 0.78, ease: 'none' }, 0);
-
-    // Filosofía: lead grande revela por scroll
+    // ── Reveals ligeros (seguros en cualquier tamaño) ──
     gsap.from('.philosophy__lead', {
-      yPercent: 40, opacity: 0, duration: 1, ease: 'expo.out',
-      scrollTrigger: { trigger: '.philosophy', start: 'top 72%' },
+      yPercent: 30, opacity: 0, duration: 1, ease: 'expo.out',
+      scrollTrigger: { trigger: '.philosophy', start: 'top 80%' },
     });
     gsap.from('.philosophy__body', {
       y: 24, opacity: 0, duration: 1, ease: 'expo.out',
-      scrollTrigger: { trigger: '.philosophy__body', start: 'top 82%' },
+      scrollTrigger: { trigger: '.philosophy__body', start: 'top 88%' },
     });
-
-    // Anatomía: pin + scrub. La pieza escala/gira sutil y las notas se dibujan en secuencia.
-    const notes = gsap.utils.toArray('[data-anatomy-note]');
-    const at = gsap.timeline({
-      scrollTrigger: {
-        trigger: '[data-anatomy]', start: 'top top', end: '+=160%',
-        pin: true, scrub: 0.6,
-      },
-    });
-    at.fromTo('[data-anatomy-piece]',
-      { scale: 0.86, rotate: -4, filter: 'brightness(0.7)' },
-      { scale: 1, rotate: 0, filter: 'brightness(1)', ease: 'none', duration: notes.length });
-    notes.forEach((n, i) => {
-      at.fromTo(n, { opacity: 0, x: 30 }, { opacity: 1, x: 0, ease: 'expo.out', duration: 0.6 }, i);
-      at.fromTo(n.querySelector('.anatomy__line'),
-        { scaleX: 0 }, { scaleX: 1, ease: 'expo.out', duration: 0.6 }, i);
-    });
-
-    // Galería horizontal: pin + traslación X por scroll
-    const track = document.querySelector('[data-gallery-track]');
-    if (track) {
-      const dist = () => track.scrollWidth - window.innerWidth;
-      gsap.to(track, {
-        x: () => -dist(), ease: 'none',
-        scrollTrigger: {
-          trigger: '[data-gallery]', start: 'top top',
-          end: () => '+=' + dist(), pin: true, scrub: 0.6, invalidateOnRefresh: true,
-        },
-      });
-    }
-
-    // Por qué: items revelan escalonado
     gsap.from('[data-why-item]', {
-      y: 40, opacity: 0, stagger: 0.15, duration: 0.9, ease: 'expo.out',
-      scrollTrigger: { trigger: '.why__list', start: 'top 78%' },
+      y: 40, opacity: 0, stagger: 0.12, duration: 0.9, ease: 'expo.out',
+      scrollTrigger: { trigger: '.why__list', start: 'top 82%' },
     });
-
-    // Testimonios
     gsap.from('[data-voice]', {
-      y: 36, opacity: 0, stagger: 0.1, duration: 0.8, ease: 'expo.out',
-      scrollTrigger: { trigger: '.voices__grid', start: 'top 80%' },
-    });
-
-    // Finale: parallax + reveal
-    gsap.to('.finale__media', {
-      yPercent: 14, ease: 'none',
-      scrollTrigger: { trigger: '[data-finale]', start: 'top bottom', end: 'bottom top', scrub: true },
+      y: 30, opacity: 0, stagger: 0.1, duration: 0.8, ease: 'expo.out',
+      scrollTrigger: { trigger: '.voices__grid', start: 'top 85%' },
     });
     gsap.from('[data-finale-inner] > *', {
       y: 40, opacity: 0, stagger: 0.12, duration: 1, ease: 'expo.out',
-      scrollTrigger: { trigger: '[data-finale]', start: 'top 65%' },
+      scrollTrigger: { trigger: '[data-finale]', start: 'top 75%' },
+    });
+
+    const mm = gsap.matchMedia();
+
+    // ════ DESKTOP (≥768px): escenas con pin / scrub / parallax ════
+    mm.add('(min-width: 768px)', () => {
+      // Parallax del fondo del hero
+      gsap.to('[data-hero-media]', {
+        yPercent: 18, scale: 1.12, ease: 'none',
+        scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true },
+      });
+
+      // El hero se encoge y oscurece mientras Filosofía sube sobre él
+      gsap.timeline({
+        scrollTrigger: { trigger: '[data-philosophy]', start: 'top bottom', end: 'top top', scrub: true },
+      })
+        .to('[data-hero]', { scale: 0.92, transformOrigin: 'center 35%', ease: 'none' }, 0)
+        .to('[data-hero-veil]', { opacity: 0.78, ease: 'none' }, 0);
+
+      // Anatomía: pin + scrub. La pieza escala/gira y las notas se dibujan en secuencia.
+      const notes = gsap.utils.toArray('[data-anatomy-note]');
+      const at = gsap.timeline({
+        scrollTrigger: { trigger: '[data-anatomy]', start: 'top top', end: '+=160%', pin: true, scrub: 0.6 },
+      });
+      at.fromTo('[data-anatomy-piece]',
+        { scale: 0.86, rotate: -4, filter: 'brightness(0.7)' },
+        { scale: 1, rotate: 0, filter: 'brightness(1)', ease: 'none', duration: notes.length });
+      notes.forEach((n, i) => {
+        at.fromTo(n, { opacity: 0, x: 30 }, { opacity: 1, x: 0, ease: 'expo.out', duration: 0.6 }, i);
+        at.fromTo(n.querySelector('.anatomy__line'), { scaleX: 0 }, { scaleX: 1, ease: 'expo.out', duration: 0.6 }, i);
+      });
+
+      // Galería horizontal: pin + traslación X por scroll
+      const track = document.querySelector('[data-gallery-track]');
+      if (track) {
+        const dist = () => track.scrollWidth - window.innerWidth;
+        gsap.to(track, {
+          x: () => -dist(), ease: 'none',
+          scrollTrigger: { trigger: '[data-gallery]', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.6, invalidateOnRefresh: true },
+        });
+      }
+
+      // Finale: parallax del fondo
+      gsap.to('.finale__media', {
+        yPercent: 14, ease: 'none',
+        scrollTrigger: { trigger: '[data-finale]', start: 'top bottom', end: 'bottom top', scrub: true },
+      });
+    });
+
+    // ════ MOBILE (≤767px): mismas secciones, layout estático + fades simples ════
+    mm.add('(max-width: 767px)', () => {
+      gsap.from('.anatomy__piece', {
+        opacity: 0, scale: 0.96, duration: 0.9, ease: 'expo.out',
+        scrollTrigger: { trigger: '.anatomy__piece', start: 'top 88%' },
+      });
+      gsap.from('[data-anatomy-note]', {
+        y: 24, opacity: 0, stagger: 0.12, duration: 0.7, ease: 'expo.out',
+        scrollTrigger: { trigger: '.anatomy__notes', start: 'top 88%' },
+      });
+      gsap.utils.toArray('.gcard').forEach((c) => {
+        gsap.from(c, {
+          y: 30, opacity: 0, duration: 0.7, ease: 'expo.out',
+          scrollTrigger: { trigger: c, start: 'top 90%' },
+        });
+      });
     });
   }
 
@@ -547,11 +563,27 @@ const gallery = [
 
   /* MOVIL: simplificar, nunca romper */
   @media (max-width: 767px) {
+    /* Hero deja de ser sticky (sin la transición de encogido, que es desktop) */
+    .panel--hero { position: relative; height: auto; min-height: 90svh; }
+    .panel--philosophy { border-radius: 0; }
+
     .hero-grid { grid-template-columns: 1fr; }
     .hero-kanji { display: none; }
+
     .anatomy__stage { grid-template-columns: 1fr; gap: var(--space-lg); min-height: auto; }
-    .gcard { width: 78vw; }
-    .gallery__intro { width: 80vw; }
+    /* En mobile la línea de la nota debe verse (en desktop la dibuja GSAP) */
+    .anatomy__line { transform: scaleX(1); }
+
+    /* Galería: de track horizontal a stack vertical (evita overflow lateral) */
+    .gallery { overflow: visible; }
+    .gallery__track {
+      flex-direction: column; align-items: stretch;
+      width: 100%; height: auto;
+      gap: var(--space-lg); padding-block: var(--space-xl);
+    }
+    .gallery__intro, .gcard, .gallery__end { width: 100%; }
+    .gallery__hint { display: none; }
+
     .finale__inner { width: 100%; max-width: 100%; padding-right: var(--container-pad); }
   }
 

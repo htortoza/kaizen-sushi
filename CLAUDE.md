@@ -503,6 +503,27 @@ Herramientas obligatorias (usa al menos 3 por página):
 - PROHIBIDO: overflow horizontal, texto que se corta, elementos que se montan
 - Test obligatorio antes de reportar: revisar el build en viewport 375px
 
+#### 15.6.1 Motion en mobile (REGLA DURA — origen de bugs frecuentes)
+
+Lo que funciona en desktop NO se traslada igual a mobile. Antes de reportar:
+
+1. **`gsap.matchMedia()` SIEMPRE** para escenas complejas. Las animaciones
+   con `pin`, `scrub`, scroll horizontal o `position: sticky` que se transforma
+   van DENTRO de `mm.add('(min-width: 768px)', ...)`. En mobile (`max-width: 767px`)
+   se sirve la MISMA sección en layout estático/vertical con fades simples.
+2. **NUNCA scroll horizontal pinneado en mobile.** Un track con `width: max-content`
+   + traslación X es la causa #1 de "se mueve fuera de los márgenes" / overflow lateral.
+   En mobile conviértelo en stack vertical (`flex-direction: column; width: 100%`).
+3. **`ScrollTrigger.config({ ignoreMobileResize: true })`** siempre. La barra de URL
+   móvil cambia el alto del viewport al hacer scroll y dispara refreshes que rompen pins.
+4. **Estado inicial sin JS:** si GSAP anima `scaleX(0)→1`, `opacity:0→1`, etc., y esa
+   animación es desktop-only, el CSS base debe dejar el elemento VISIBLE en mobile
+   (resetear `transform`/`opacity` en el `@media`), o el contenido queda invisible.
+5. **`position: sticky` que se escala/encoge:** desktop-only. En mobile el hero/secciones
+   van `position: relative`, alto natural.
+6. **Verifica overflow horizontal real** a 375px: ningún elemento debe exceder el ancho.
+   `html { overflow-x: hidden }` es backstop, NO solución — arregla el elemento culpable.
+
 ### 15.7 Diseño para Conversión (Pilar 3)
 
 Cuando el sitio vende (product, service, landing comercial):
@@ -537,6 +558,8 @@ Responde honestamente. Si alguna falla → itera ANTES de reportar:
 - [ ] ¿Hay al menos 1 momento memorable de motion?
 - [ ] ¿Usé al menos 3 herramientas de layout no genérico (15.5)?
 - [ ] ¿Lo revisé en 375px sin overflow ni elementos rotos?
+- [ ] ¿Las escenas con pin/scrub/scroll-horizontal están en `gsap.matchMedia()` con fallback estático en mobile? (ver 15.6.1)
+- [ ] ¿Ningún elemento queda invisible en mobile por un estado inicial de GSAP que solo corre en desktop?
 - [ ] ¿Todo elemento interactivo tiene hover/touch feedback?
 - [ ] Si vende algo: ¿el CTA es inconfundible y el camino a la conversión es obvio?
 - [ ] ¿prefers-reduced-motion tiene fallback digno?
