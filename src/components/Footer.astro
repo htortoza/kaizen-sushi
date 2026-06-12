@@ -2,6 +2,7 @@
 // src/components/Footer.astro
 // Chrome global del sitio. Lee contracts/site.json (marca + contacto + links).
 import site from '../../contracts/site.json';
+import { withBase } from '../lib/path.js';
 
 const year = new Date().getFullYear();
 const { siteName } = site.site;
@@ -23,7 +24,7 @@ const orderUrl = site.orderUrl ?? '#';
         <h3>Explorar</h3>
         <ul role="list">
           {links.map((item) => (
-            <li><a href={item.href}>{item.label}</a></li>
+            <li><a href={withBase(item.href)}>{item.label}</a></li>
           ))}
         </ul>
       </nav>

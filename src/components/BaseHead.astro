@@ -1,6 +1,7 @@
 ---
 // src/components/BaseHead.astro
 import '../styles/theme.css';
+import { withBase } from '../lib/path.js';
 
 const {
   title,
@@ -13,7 +14,7 @@ const {
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical -->

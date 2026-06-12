@@ -2,6 +2,7 @@
 // AUTO-GENERADO por generate.js — NO editar a mano, editar el contrato
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import { withBase } from '../lib/path.js';
 
 const _seo = {
   "title": "Menú & Delivery | Kaizen Sushi",
@@ -76,7 +77,7 @@ const _schema = {
     subheadline={_product.description}
     ctaText={_hero.ctaText ?? "Comprar ahora"}
     ctaHref={_hero.ctaHref ?? "#"}
-    backgroundImage={_hero.backgroundImage}
+    backgroundImage={withBase(_hero.backgroundImage)}
   />
   {/* Contenido de producto generado desde contrato */}
   <section class="product-detail container">

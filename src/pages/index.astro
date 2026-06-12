@@ -4,6 +4,7 @@
 // Datos desde el contrato; layout y coreografía de motion hechos a mano.
 import Layout from '../layouts/Layout.astro';
 import Preloader from '../components/Preloader.astro';
+import { withBase } from '../lib/path.js';
 import site from '../../contracts/site.json';
 import data from '../../contracts/pages/index.json';
 
@@ -38,7 +39,7 @@ const gallery = [
   <!-- STACK: HERO (sticky) -> FILOSOFIA (cubre y encoge al hero) -->
   <div class="stack">
     <section class="panel panel--hero" data-hero aria-label="Inicio">
-      <div class="hero-media" data-hero-media style={`--bg: url('${hero.backgroundImage}')`}></div>
+      <div class="hero-media" data-hero-media style={`--bg: url('${withBase(hero.backgroundImage)}')`}></div>
       <div class="hero-veil" data-hero-veil></div>
 
       <div class="container hero-grid">
@@ -51,7 +52,7 @@ const gallery = [
           <p class="hero-sub" data-reveal>{hero.subheadline}</p>
           <div class="hero-actions" data-reveal>
             <a class="btn-primary" href={order} target="_blank" rel="noopener noreferrer" data-magnetic>{hero.ctaText}</a>
-            <a class="btn-ghost" href="/menu">{hero.ctaSecondaryText} <span aria-hidden="true">→</span></a>
+            <a class="btn-ghost" href={withBase('/menu')}>{hero.ctaSecondaryText} <span aria-hidden="true">→</span></a>
           </div>
         </div>
         <span class="hero-kanji" data-hero-kanji aria-hidden="true">改善</span>
@@ -87,7 +88,7 @@ const gallery = [
     </div>
     <div class="anatomy__stage">
       <figure class="anatomy__piece" data-anatomy-piece>
-        <img src="/images/nigiri.jpg" alt="Nigiri premium de Kaizen Sushi" loading="lazy" />
+        <img src={withBase('/images/nigiri.jpg')} alt="Nigiri premium de Kaizen Sushi" loading="lazy" />
       </figure>
       <ul class="anatomy__notes">
         {anatomy.map((a, i) => (
@@ -112,7 +113,7 @@ const gallery = [
       </div>
       {gallery.map((g) => (
         <article class="gcard">
-          <div class="gcard__media"><img src={g.img} alt={g.title} loading="lazy" /></div>
+          <div class="gcard__media"><img src={withBase(g.img)} alt={g.title} loading="lazy" /></div>
           <div class="gcard__meta">
             <span class="gcard__n">{g.n}</span>
             <h3>{g.title}</h3>
@@ -170,7 +171,7 @@ const gallery = [
   <!-- CTA FINAL (full-bleed cinematográfico) -->
   {cta && (
     <section class="finale" data-finale aria-label="Pedir">
-      <div class="finale__media" style="--bg: url('/images/og-default.jpg')"></div>
+      <div class="finale__media" style={`--bg: url('${withBase('/images/og-default.jpg')}')`}></div>
       <div class="finale__veil"></div>
       <div class="finale__inner" data-finale-inner>
         <h2 class="finale__title">{cta.headline}</h2>

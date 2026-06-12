@@ -3,8 +3,9 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // ─── AGENTE: reemplaza este valor con el dominio real del cliente ───
-  site: 'https://kaizensushi.cl',
+  // GitHub Pages (repo de proyecto): el sitio vive en /kaizen-sushi/
+  site: 'https://htortoza.github.io',
+  base: '/kaizen-sushi',
 
   integrations: [
     sitemap({

@@ -2,6 +2,7 @@
 // AUTO-GENERADO por generate.js — NO editar a mano, editar el contrato
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import { withBase } from '../lib/path.js';
 
 const _seo = {
   "title": "Catering de Sushi para Eventos y Empresas | Kaizen Sushi",
@@ -93,7 +94,7 @@ const _schema = {
     subheadline={_service.description}
     ctaText={_hero.ctaText ?? "Consultar"}
     ctaHref={_hero.ctaHref ?? "#contacto"}
-    backgroundImage={_hero.backgroundImage}
+    backgroundImage={withBase(_hero.backgroundImage)}
   />
   {_service.features?.length > 0 && (
     <section class="service-features container">

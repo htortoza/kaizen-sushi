@@ -2,6 +2,7 @@
 // src/components/Header.astro
 // Chrome global del sitio. Lee contracts/site.json (fuente única de marca + navegación).
 import site from '../../contracts/site.json';
+import { withBase } from '../lib/path.js';
 
 const { siteName } = site.site;
 const nav = site.navigation ?? [];
@@ -10,7 +11,7 @@ const orderUrl = site.orderUrl ?? '#';
 
 <header class="site-header" data-header>
   <div class="container site-header__inner">
-    <a href="/" class="logo" aria-label={`${siteName} — Inicio`}>
+    <a href={withBase('/')} class="logo" aria-label={`${siteName} — Inicio`}>
       <span class="logo__mark" aria-hidden="true"></span>
       <span class="logo__text">{siteName}</span>
     </a>
@@ -18,7 +19,7 @@ const orderUrl = site.orderUrl ?? '#';
     <nav class="main-nav" aria-label="Navegación principal">
       <ul role="list">
         {nav.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
+          <li><a href={withBase(item.href)}>{item.label}</a></li>
         ))}
       </ul>
     </nav>
@@ -43,7 +44,7 @@ const orderUrl = site.orderUrl ?? '#';
     <nav aria-label="Navegación móvil">
       <ul role="list">
         {nav.map((item) => (
-          <li><a href={item.href} data-overlay-link>{item.label}</a></li>
+          <li><a href={withBase(item.href)} data-overlay-link>{item.label}</a></li>
         ))}
       </ul>
     </nav>
