@@ -247,6 +247,17 @@ const gallery = [
       scrollTrigger: { trigger: '[data-finale]', start: 'top 75%' },
     });
 
+    // Galería horizontal (pin + traslación X) — EN TODOS LOS TAMAÑOS.
+    // En mobile funciona bien y da un efecto premium (mover slides al scrollear).
+    const track = document.querySelector('[data-gallery-track]');
+    if (track) {
+      const dist = () => Math.max(0, track.scrollWidth - window.innerWidth);
+      gsap.to(track, {
+        x: () => -dist(), ease: 'none',
+        scrollTrigger: { trigger: '[data-gallery]', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.6, invalidateOnRefresh: true },
+      });
+    }
+
     if (mm) mm.revert();      // evita acumular contextos en navegación interna
     mm = gsap.matchMedia();
 
@@ -278,16 +289,6 @@ const gallery = [
         at.fromTo(n.querySelector('.anatomy__line'), { scaleX: 0 }, { scaleX: 1, ease: 'expo.out', duration: 0.6 }, i);
       });
 
-      // Galería horizontal: pin + traslación X por scroll
-      const track = document.querySelector('[data-gallery-track]');
-      if (track) {
-        const dist = () => track.scrollWidth - window.innerWidth;
-        gsap.to(track, {
-          x: () => -dist(), ease: 'none',
-          scrollTrigger: { trigger: '[data-gallery]', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.6, invalidateOnRefresh: true },
-        });
-      }
-
       // Finale: parallax del fondo
       gsap.to('.finale__media', {
         yPercent: 14, ease: 'none',
@@ -304,12 +305,6 @@ const gallery = [
       gsap.from('[data-anatomy-note]', {
         y: 24, opacity: 0, stagger: 0.12, duration: 0.7, ease: 'expo.out',
         scrollTrigger: { trigger: '.anatomy__notes', start: 'top 88%' },
-      });
-      gsap.utils.toArray('.gcard').forEach((c) => {
-        gsap.from(c, {
-          y: 30, opacity: 0, duration: 0.7, ease: 'expo.out',
-          scrollTrigger: { trigger: c, start: 'top 90%' },
-        });
       });
     });
   }
@@ -582,15 +577,11 @@ const gallery = [
     /* En mobile la línea de la nota debe verse (en desktop la dibuja GSAP) */
     .anatomy__line { transform: scaleX(1); }
 
-    /* Galería: de track horizontal a stack vertical (evita overflow lateral) */
-    .gallery { overflow: visible; }
-    .gallery__track {
-      flex-direction: column; align-items: stretch;
-      width: 100%; height: auto;
-      gap: var(--space-lg); padding-block: var(--space-xl);
-    }
-    .gallery__intro, .gcard, .gallery__end { width: 100%; }
-    .gallery__hint { display: none; }
+    /* Galería: SE MANTIENE horizontal en mobile (funciona y se ve premium).
+       Solo ajustamos anchos para que título y cards sean legibles. */
+    .gallery__intro { width: 82vw; }
+    .gcard { width: 80vw; }
+    .gallery__end { width: 78vw; }
 
     .finale__inner { width: 100%; max-width: 100%; padding-right: var(--container-pad); }
   }
