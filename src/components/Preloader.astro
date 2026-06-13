@@ -18,10 +18,22 @@
 </div>
 
 <script>
+  // En navegación interna (View Transitions) el módulo no se re-ejecuta:
+  // retira cualquier preloader que vuelva a renderizarse y deja el flag puesto.
+  document.addEventListener('astro:after-swap', () => {
+    document.querySelector('[data-preloader]')?.remove();
+    window.__kaizenRevealed = true;
+    document.body.style.overflow = '';
+  });
+
   const pl = document.querySelector('[data-preloader]');
   if (pl) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const fire = () => document.dispatchEvent(new CustomEvent('kaizen:revealed'));
+    // Marca el flag (para listeners tardíos) y avisa.
+    const fire = () => {
+      window.__kaizenRevealed = true;
+      document.dispatchEvent(new CustomEvent('kaizen:revealed'));
+    };
 
     // Solo en la primera visita de la sesión
     const seen = sessionStorage.getItem('kaizen_loaded');

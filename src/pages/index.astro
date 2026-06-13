@@ -188,6 +188,7 @@ const gallery = [
   gsap.registerPlugin(ScrollTrigger);
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let mm; // contexto de matchMedia (se revierte antes de recrear)
 
   function magnetic() {
     if (!window.matchMedia('(pointer: fine)').matches) return;
@@ -246,7 +247,8 @@ const gallery = [
       scrollTrigger: { trigger: '[data-finale]', start: 'top 75%' },
     });
 
-    const mm = gsap.matchMedia();
+    if (mm) mm.revert();      // evita acumular contextos en navegación interna
+    mm = gsap.matchMedia();
 
     // ════ DESKTOP (≥768px): escenas con pin / scrub / parallax ════
     mm.add('(min-width: 768px)', () => {
@@ -312,14 +314,20 @@ const gallery = [
     });
   }
 
-  document.addEventListener('kaizen:revealed', () => {
-    revealHero();
-    scenes();
+  function initMotion() {
+    // Las escenas se (re)crean en cada carga; el Layout hace killAll en astro:before-swap.
     magnetic();
-    ScrollTrigger.refresh();
-  }, { once: true });
+    scenes();
+    // El intro del hero espera a que el preloader levante la cortina.
+    // Handshake por flag para no perder el evento si el preloader ya disparó
+    // antes de que este módulo (que descarga GSAP) registrara el listener.
+    const playHero = () => { revealHero(); ScrollTrigger.refresh(); };
+    if (window.__kaizenRevealed) playHero();
+    else document.addEventListener('kaizen:revealed', playHero, { once: true });
+  }
 
-  // Recalcular medidas cuando cargan imágenes/fuentes
+  // Corre en la carga inicial, en recarga (F5) y tras cada View Transition.
+  document.addEventListener('astro:page-load', initMotion);
   window.addEventListener('load', () => ScrollTrigger.refresh());
 </script>
 
