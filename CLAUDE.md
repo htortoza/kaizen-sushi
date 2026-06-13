@@ -516,9 +516,14 @@ Lo que funciona en desktop NO se traslada igual a mobile. Antes de reportar:
    con `pin`, `scrub`, scroll horizontal o `position: sticky` que se transforma
    van DENTRO de `mm.add('(min-width: 768px)', ...)`. En mobile (`max-width: 767px`)
    se sirve la MISMA sección en layout estático/vertical con fades simples.
-2. **NUNCA scroll horizontal pinneado en mobile.** Un track con `width: max-content`
-   + traslación X es la causa #1 de "se mueve fuera de los márgenes" / overflow lateral.
-   En mobile conviértelo en stack vertical (`flex-direction: column; width: 100%`).
+2. **Distinguir el pin BUENO del MALO en mobile** (matiz validado por el usuario):
+   - ✅ Galería de slides horizontales que AVANZAN con el scroll (el contenido progresa):
+     funciona y se siente premium en mobile — **mantenerla**. El overflow lateral se
+     evita con `overflow: hidden` en el contenedor del track, NO eliminando el efecto.
+   - ❌ Pin donde un elemento (p. ej. imagen full-screen) solo se transforma "en su eje"
+     (escala/rota/scrub) SIN que el contenido avance: atrapa al usuario que quiere seguir
+     bajando y leyendo. Esas escenas (tipo "anatomía") van **estáticas y scrolleables** en
+     mobile (layout vertical, fades simples), no pinneadas.
 3. **`ScrollTrigger.config({ ignoreMobileResize: true })`** siempre. La barra de URL
    móvil cambia el alto del viewport al hacer scroll y dispara refreshes que rompen pins.
 4. **Estado inicial sin JS:** si GSAP anima `scaleX(0)→1`, `opacity:0→1`, etc., y esa
