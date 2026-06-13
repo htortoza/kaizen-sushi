@@ -143,6 +143,11 @@ Los hooks disponibles en los componentes base son:
 - ❌ NUNCA dupliques meta tags (BaseHead ya los maneja)
 - ✅ El JSON-LD va siempre en el prop `schemaData` del Layout
 - ✅ Canonical URL la gestiona BaseHead automáticamente
+- ✅ **og:image OBLIGATORIO** y NO opcional: toda página debe servir una imagen
+  de compartir válida y **absoluta** (`https://dominio/...`, base-aware en subcarpetas).
+  El Layout fija un `defaultOgImage` del sitio. Ideal: tarjeta diseñada 1200×630
+  (marca + título corto + imagen referencial), no solo una foto suelta.
+  Verificar el `<meta property="og:image">` en el HTML buildeado antes de reportar.
 
 ---
 
@@ -523,6 +528,13 @@ Lo que funciona en desktop NO se traslada igual a mobile. Antes de reportar:
    van `position: relative`, alto natural.
 6. **Verifica overflow horizontal real** a 375px: ningún elemento debe exceder el ancho.
    `html { overflow-x: hidden }` es backstop, NO solución — arregla el elemento culpable.
+7. **Init robusto (probar SIEMPRE con F5 y navegación interna):** el motion debe
+   inicializarse en `astro:page-load` (corre en carga inicial, recarga y View
+   Transitions), NO solo en un evento one-shot. Si una intro depende de un evento
+   (ej. `kaizen:revealed` del preloader), úsalo con un **flag global** de respaldo
+   (`window.__kaizenRevealed`) porque el módulo que importa GSAP puede registrar el
+   listener DESPUÉS de que el evento ya se disparó (en refresh el preloader dispara
+   en ~1 frame) → la página queda estática. Revertir `matchMedia` antes de recrear.
 
 ### 15.7 Diseño para Conversión (Pilar 3)
 
