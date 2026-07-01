@@ -24,12 +24,12 @@ jobs:
       - name: 🏗️ Construir el proyecto Astro
         run: npm run build
 
-      - name: 🚀 Desplegar a cPanel vía SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: 🚀 Desplegar a cPanel vía SFTP (con Llave SSH)
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
-          ssh-key: ${{ secrets.SFTP_SSH_KEY }}
+          ssh_private_key: ${{ secrets.SFTP_SSH_KEY }}
           port: 22222
-          local-dir: ./dist/
-          server-dir: ./public_html/sushi/
+          local_path: './dist/*'
+          remote_path: './public_html/sushi/'
