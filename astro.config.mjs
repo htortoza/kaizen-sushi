@@ -3,9 +3,9 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // GitHub Pages (repo de proyecto): el sitio vive en /kaizen-sushi/
-  site: 'https://htortoza.github.io',
-  base: '/kaizen-sushi',
+  site: 'https://smart-order.io/', 
+  
+  base: '/sushi',
 
   integrations: [
     sitemap({
